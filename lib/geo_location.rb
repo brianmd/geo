@@ -1,6 +1,4 @@
 module Geo
-  module_function
-
   class GeoLocation
     include Virtus.model
 
@@ -26,5 +24,11 @@ module Geo
       fail 'Unable to coerce into GeoLocation'
     end
   end
+
+  def verve_location
+    GeoLocation('33.1243208, -117.32582479999996')
+  end
+
+  module_function :GeoLocation, :verve_location
 end
 
