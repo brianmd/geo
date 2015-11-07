@@ -8,7 +8,6 @@ module Geo
     attribute :longitude, Float
 
     def distance_from(other_location)
-      #GeoDistance.distance(latitude, longitude, other_location.latitude, other_location.longitude)
       dist = GeoDistance::Haversine.geo_distance(latitude, longitude, other_location.latitude, other_location.longitude)
       dist.as_miles
     end

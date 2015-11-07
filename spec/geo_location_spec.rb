@@ -11,6 +11,10 @@ module Geo
         expect(verve.class).to eq(GeoLocation)
       end
 
+      it 'GeoLocation() should return itself' do
+        expect(Geo::GeoLocation(verve)).to eq(verve)
+      end
+
       it 'should have acceptable precision' do
         expect(verve.latitude).to be_within(0.0000001).of(33.1243208)
       end
