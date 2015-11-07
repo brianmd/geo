@@ -4,11 +4,19 @@
 
 ![Alt text](docs/verve.png?raw=true "Class Diagram")
 
-This is for the Verve
+This repository is for the Verve
 [coding challenge](https://github.com/VerveWireless/software-challenge),
 but I took it as an opportunity
 to experiment with the virtus gem (learned using active_model is useful
-in conjuction with virtus), and write my first react.js code.
+in conjuction it), and write my first react.js code.
+
+The example file does not have the same columns as the description, so my models
+contain the subset of the fields, and assume the data will arrive in the format
+of the example file.
+
+The rows of the example file are unique via street, latitude, and longitude, so
+those are what I use as the key. Should a second row occur with the same key,
+the original row will be updated.
 
 ## Installation
 
