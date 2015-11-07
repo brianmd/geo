@@ -1,17 +1,16 @@
 language: ruby
 cache: bundler
-
 rvm:
-  - jruby
-  - 2.0.0
-  - 2.1.5
-  - 2.2.0
-
-script: 'bundle exec rake'
-
+- jruby
+- 2.0.0
+- 2.1.5
+- 2.2.0
+script: bundle exec rake
 notifications:
   email:
     recipients:
-      - brian@murphydye.com
+    - brian@murphydye.com
     on_failure: change
     on_success: never
+  slack:
+    secure: Csdvsh2+0s8QB9q7Y6ZT0M6Q9aaNR2KOn2NNiCgRQBUqopWs4QMhw8s0LXSN0XdeLywXXDevAYTAGnwe8Wbtvvdvdk3MXGzUeEZ01alYUGccNxOUNuhref815ZxyU5t5/Ex9DoRSgMYwXiDQqlSulHDCau5gR6TtPB884q+kkc7Y/52troQC/BhGcpFacZnU2vQPwEGqYJh3+obzWsLUp2sxiwTqEWooUo/YXF4nhL+GPW2U9u8laHtzckfbkSar/ra4NyBpOHO/UT3T31BnMuafV2Bz8DFOkOK0ucYLMReNznWZ404F2E4vUS3Dcg1n/4M2eT4zyKZeviDJx3YyxoBTdqgkO2MZxaqR/W2/YFitX+zq9L8xt9HkWrgJGBEEZIbAg88vhKbW1LXsTFc6qpbdVVLbZBEYKV6/eLmAuRtai2ZYezd9xsqv7EFHc/o1eevZlnm00y4L1hXeJIlugmSvw6xCY1caaepQ5u+tQYmhbOZiPHeU7c7ywmoWdk3OpGbI6VadUoOLA1d7+6YuzRNS7zAEp3gv3Q8GOrw214bFz6tuo70dsBvaR579sLp9RCXXywTb7GKKNW544V//rB1o7q1NCWBVV4lIrq/F4FCg+8lyYwhMSBnQT9l/oER8czkdVmiBqgFzCa4FekYSJexyDV2uefaNS/wB8rpFIJs=
