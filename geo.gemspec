@@ -29,6 +29,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'sinatra'
   spec.add_dependency 'virtus'
+  spec.add_dependency 'activemodel'
   spec.add_dependency 'geo-distance', '~> 0.2.0'
   spec.add_dependency 'collectr'
 

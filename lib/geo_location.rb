@@ -1,9 +1,12 @@
 module Geo
   class GeoLocation
     include Virtus.model
+    include ActiveModel::Validations
 
     attribute :latitude, Float
     attribute :longitude, Float
+
+    validates :latitude, :longitude, presence: true
 
     def distance_from(other_location)
       dist = GeoDistance::Haversine.geo_distance(latitude, longitude, other_location.latitude, other_location.longitude)

@@ -28,6 +28,10 @@ module Geo
       it 'should raise an error' do
         expect{ Geo::GeoLocation(3) }.to raise_error(RuntimeError)
       end
+
+      it 'should require latitude' do
+        expect(GeoLocation.new).not_to be_valid
+      end
     end
   end
 end
