@@ -9,6 +9,10 @@ module Geo
 
     validates :name, :address, presence: true
 
+    def key
+      [address.street, address.location.to_a]
+    end
+
     def location
       address.location
     end

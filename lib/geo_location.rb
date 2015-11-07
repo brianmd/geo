@@ -8,6 +8,10 @@ module Geo
 
     validates :latitude, :longitude, presence: true
 
+    def to_a
+      [latitude, longitude]
+    end
+
     def distance_from(other_location)
       dist = GeoDistance::Haversine.geo_distance(latitude, longitude, other_location.latitude, other_location.longitude)
       dist.as_miles
