@@ -11,6 +11,10 @@ module Geo
         expect(verve.class).to eq(GeoLocation)
       end
 
+      it 'has methods' do
+        expect((GeoDistance::Haversine.methods.sort-3.methods).sort).to eq([])
+      end
+
       it 'GeoLocation() should return itself' do
         expect(Geo::GeoLocation(verve)).to eq(verve)
       end
