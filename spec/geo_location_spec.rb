@@ -1,10 +1,8 @@
 require 'spec_helper'
 
-require 'geo_location'
-
 module Geo
   describe GeoLocation do
-    let(:verve) { Geo::GeoLocation('33.1243208, -117.32582479999996') }
+    let(:verve) { Geo::verve_location }
 
     context 'when instantiated from a string' do
       it 'should be an instance of GeoLocation' do

@@ -1,5 +1,8 @@
-require "geo/version"
+require_relative "geo/version"
 
-module Geo
-  # Your code goes here...
-end
+require 'virtus'
+require 'geo-distance'
+
+require_relative 'geo_location'
+require_relative 'address'
+
