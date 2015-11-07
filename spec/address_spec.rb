@@ -35,6 +35,10 @@ module Geo
       it 'should have the correct latitude' do
         expect(addr.location.latitude).to eq(3)
       end
+
+      it 'should raise error when attepting #distance_from' do
+        expect(addr.distance_from(Geo::GeoLocation('1,2'))).to be_within(5).of(195)
+      end
     end
 
     context 'when city is missing' do
@@ -47,6 +51,23 @@ module Geo
       it 'should not be valid' do
         expect(addr.class).to eq(Address)
         expect(addr).to_not be_valid
+      end
+    end
+
+    context 'when location is missing' do
+      let(:addr) {
+        params = addr_params
+        params.delete :location
+        Address.new(addr_params)
+      }
+
+      it 'should be valid' do
+        expect(addr.class).to eq(Address)
+        expect(addr).to be_valid
+      end
+
+      it 'should raise error when attepting #distance_from' do
+        expect{ addr.distance_from(Geo::GeoLocation('1,2')) }.to raise_error(RuntimeError)
       end
     end
   end
