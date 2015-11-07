@@ -20,6 +20,7 @@ module Geo
       return location
     when String
       tokens = location.split(',')
+      fail 'Two comma separated numbers are required for GeoLocation' unless tokens.size==2
       lat  = Float(tokens[0])
       long = Float(tokens[1])
       return GeoLocation.new latitude: lat, longitude: long

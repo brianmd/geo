@@ -29,6 +29,10 @@ module Geo
         expect{ Geo::GeoLocation(3) }.to raise_error(RuntimeError)
       end
 
+      it 'should require instantiation string to have two numbers' do
+        expect{ Geo::GeoLocation('33') }.to raise_error(RuntimeError)
+      end
+
       it 'should require latitude' do
         expect(GeoLocation.new).not_to be_valid
       end
