@@ -27,6 +27,10 @@ module Geo
         expect(business).to be_valid
       end
 
+      it 'location should be of type GeoLocation' do
+        expect(business.location.class).to eq(GeoLocation)
+      end
+
       it 'should calculate distance_from' do
         expect(business.distance_from(Geo::GeoLocation('1,2'))).to be_within(5).of(195)
       end
