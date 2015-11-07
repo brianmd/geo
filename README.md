@@ -4,27 +4,26 @@
 
 ![Alt text](docs/verve.png?raw=true "Class Diagram")
 
-TODO: Delete this and the text above, and describe your gem
+This is for the Verve
+[coding challenge](https://github.com/VerveWireless/software-challenge),
+but I took it as an opportunity
+to experiment with the virtus gem (learned using active_model is useful
+in conjuction with virtus), and write my first react.js code.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Run this from the command line:
 
-```ruby
-gem 'geo'
+```sh
+gem 'geo', :git => 'git://github.com/brianmd/geo.git'
 ```
 
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install geo
 
 ## Usage
 
-TODO: Write usage instructions here
+```sh
+geo_runner
+```
 
 ## Development
 
