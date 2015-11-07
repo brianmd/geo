@@ -36,7 +36,7 @@ module Geo
         expect(addr.location.latitude).to eq(3)
       end
 
-      it 'should raise error when attepting #distance_from' do
+      it 'should calculate distance_from' do
         expect(addr.distance_from(Geo::GeoLocation('1,2'))).to be_within(5).of(195)
       end
     end

@@ -6,4 +6,5 @@ require 'geo-distance'
 
 require_relative 'geo_location'
 require_relative 'address'
+require_relative 'business'
 
