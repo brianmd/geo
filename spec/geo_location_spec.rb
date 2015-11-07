@@ -22,6 +22,10 @@ module Geo
         miles = verve.distance_from(home)
         expect(miles).to be_within(0.000000001).of(630.2960908921099)
       end
+
+      it 'should be 0 miles from itself' do
+        expect(verve.distance_from(verve)).to eq(0)
+      end
     end
 
     context 'when invalid parameter is passed' do
@@ -34,7 +38,7 @@ module Geo
       end
 
       it 'should require latitude' do
-        expect(GeoLocation.new).not_to be_valid
+        expect(GeoLocation.new).to_not be_valid
       end
     end
   end
