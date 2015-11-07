@@ -1,4 +1,8 @@
+[![Build Status](https://api.travis-ci.org/brianmd/geo.png?branch=master)](https://travis-ci.org/brianmd/geo)  [![Gem Version](https://badge.fury.io/rb/geo.png)](http://badge.fury.io/rb/geo)  [![Coverage Status](https://coveralls.io/repos/brianmd/geo/badge.png?branch=master&service=github)](https://coveralls.io/github/brianmd/geo?branch=master)
+
 # Geo
+
+![Alt text](docs/verve.png?raw=true "Class Diagram")
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/geo`. To experiment with that code, run `bin/console` for an interactive prompt.
 
