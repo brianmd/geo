@@ -25,6 +25,12 @@ module Geo
         expect(miles).to be_within(0.000000001).of(630.2960908921099)
       end
     end
+
+    context 'when invalid parameter is passed' do
+      it 'should raise an error' do
+        expect{ Geo::GeoLocation(3) }.to raise_error(RuntimeError)
+      end
+    end
   end
 end
 
