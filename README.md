@@ -1,4 +1,4 @@
-[![Build Status](https://api.travis-ci.org/brianmd/geo.png?branch=master)](https://travis-ci.org/brianmd/geo)  [![Gem Version](https://badge.fury.io/rb/geo.png)](http://badge.fury.io/rb/geo)  [![Coverage Status](https://coveralls.io/repos/brianmd/geo/badge.png?branch=master&service=github)](https://coveralls.io/github/brianmd/geo?branch=master)
+[![Build Status](https://api.travis-ci.org/brianmd/geo.png?branch=master)](https://travis-ci.org/brianmd/geo)  [![Coverage Status](https://coveralls.io/repos/brianmd/geo/badge.png?branch=master&service=github)](https://coveralls.io/github/brianmd/geo?branch=master)
 
 # Geo
 
