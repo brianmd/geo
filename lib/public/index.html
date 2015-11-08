@@ -71,10 +71,10 @@
 
         handleNewBusinesses: function(e) {
           e.preventDefault();
+          $("#businessInputs").hide();
           var self = this;
           var txt = $("#businessText").val();
           console.log('posting new businesses');
-          console.log(txt);
           $.post('/new_businesses', {data: txt}).always(function(){ self.reload(); });
         },
 
@@ -109,7 +109,7 @@
         render: function() {
           var invisible = { 'display': 'none' }
           collection = this.state.businesses || [];
-          if (collection.length !== -1) {
+          if (collection.length) {
             deleteButton = <button type="button" className="btn btn-danger" onClick={this.onDeleteAllClick}><span className="glyphicon glyphicon-remove"></span> Delete all businesses <span className="badge">{collection.length}</span></button>;
           } else {
             deleteButton = '';
@@ -127,7 +127,7 @@
               <div id="businessInputs" style={invisible}>
                 <form onSubmit={this.handleNewBusinesses}>
                   <textarea id="businessText" className="big-box" onChange={this.onBusinessTextChange} value={this.state.businessText} />
-                  <br/>
+                  <br/><br/>
                   <button type="button" className="btn btn-success" onClick={this.handleNewBusinesses}><span className="glyphicon glyphicon-ok"></span> Store Businesses</button>
                 </form>
               </div>
@@ -156,7 +156,6 @@
               </div>
               <br/>
               {deleteButton}
-            <button type="button" className="btn btn-danger" onClick={this.handleNewBusinesses}><span className="glyphicon glyphicon-remove"></span> add new businesses <span className="badge">{collection.length}</span></button>;
             </div>
           );
         }
