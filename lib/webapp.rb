@@ -3,13 +3,12 @@ require 'json'
 
 require_relative 'geo'
 
+# NOTE: you must have redis running on localhost w/o a password.
+
 def businesses
   unless @businesses
-    $stderr.puts Geo::Businesses.memory_hash
-    @businesses = Geo::Businesses.new(Geo::Businesses.memory_hash)
-    $stderr.puts @businesses.inspect
+    @businesses = Geo::Businesses.new(Geo::Businesses.redis_hash)
     data_string = File.read('spec/offers_poi.tsv')
-    $stderr.puts data_string, data_string.size
     Geo::LoadBusinesses.load_businesses(@businesses, data_string)
   end
   @businesses

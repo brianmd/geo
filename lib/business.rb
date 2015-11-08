@@ -38,6 +38,13 @@ module Geo
       hash[:distance] = distance_from(location) if location
       hash
     end
+
+    def nested_attributes
+      result = attributes
+      result[:address] = self.address.attributes
+      result[:address][:location] = address.location.attributes
+      result
+    end
   end
 end
 

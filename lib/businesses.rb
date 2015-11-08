@@ -17,12 +17,19 @@ module Geo
       self.keys.collect{ |key| self[key] }
     end
 
+    def [](key)
+      Business.new(super)
+    end
+
+    def []=(key, value)
+      super(key, value.nested_attributes)
+    end
+
     def find_all_by_distance(location)
       find_all.sort_by{ |business| business.distance_from(location) }
     end
 
     def save!(business)
-      # self[[business.address.street, business.location.to_a]] = business
       self[business.key] = business
     end
 

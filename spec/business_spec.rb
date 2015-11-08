@@ -5,12 +5,16 @@ module Geo
     let(:business_params) {
       {
         name: 'Verve',
+        phone: nil,
+        radius: '5',
         address: {
           street: '5973 Avenida Encinas',
+          street2: nil,
           city:   'Carlsbad',
           state:  'CA',
           country: 'US',
           zip:    '92008',
+          zip_suffix: nil,
           location: { latitude: 3, longitude: 4 },
         }
       }
@@ -33,6 +37,10 @@ module Geo
 
       it 'should calculate distance_from' do
         expect(business.distance_from(Geo::GeoLocation('1,2'))).to be_within(5).of(195)
+      end
+
+      it 'should have correct #nested_attribtes' do
+        expect(business.nested_attributes).to eq(business_params)
       end
     end
   end

@@ -12,12 +12,16 @@ module Geo
     let(:business_params) {
       {
         name: 'Verve',
+        phone: '123-456-7890',
+        radius: '5',
         address: {
           street: street,
+          street2: nil,
           city:   'Carlsbad',
           state:  'CA',
           country: 'US',
           zip:    '92008',
+          zip_suffix: nil,
           location: { latitude: lat_long[0], longitude: lat_long[1] },
         }
       }
@@ -26,7 +30,7 @@ module Geo
     let(:business) { Business.new(business_params) }
     let(:key) { business.key }
     let(:business2) {
-      params = business_params
+      params = Marshal.load(Marshal.dump(business_params))
       params[:name] = 'Verve2'
       params[:address][:city] = 'Carls'
       params[:address][:location][:latitude] = 33
@@ -34,16 +38,18 @@ module Geo
     }
 
     context 'when businesses is empty' do
+      before(:each) { businesses.clear_all! }
+
       it 'should be able to add an item' do
-        businesses[:a] = 3
-        expect(businesses[:a]).to eq(3)
+        businesses[:a] = business
+        expect(businesses[:a].name).to eq('Verve')
       end
 
       it 'find_all should work' do
-        businesses[:a] = 3
-        businesses[:b] = 5
+        businesses[:a] = business
+        businesses[:b] = business2
         expect(businesses.keys).to eq([:a,:b])
-        expect(businesses.find_all).to eq([3,5])
+        expect(businesses.find_all.first.nested_attributes).to eq(business_params)
       end
 
       it 'should be able to add real businesses' do
@@ -60,11 +66,11 @@ module Geo
         expect(verve.class).to eq(Business)
         expect(verve.address.city).to eq('Carlsbad')
         verve.address.city = 'C'
-        businesses.save!(business)
+        businesses.save!(verve)
         expect(businesses.size).to eq(2)
-        verve = businesses[key]
-        expect(verve.class).to eq(Business)
-        expect(verve.address.city).to eq('C')
+        new_verve = businesses[key]
+        expect(new_verve.class).to eq(Business)
+        expect(new_verve.address.city).to eq('C')
       end
 
       it 'should be able to clear all businesses' do
