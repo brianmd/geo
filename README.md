@@ -7,61 +7,34 @@
 This repository is for the Verve
 [coding challenge](https://github.com/VerveWireless/software-challenge),
 but I took it as an opportunity
-to experiment with the virtus gem (learned using active_model is useful
-in conjuction it), and write my first react.js code.
+to experiment with the virtus gem and write my first react.js code.
 
 Using sinatra rather than rails as this is a small, self-contained project.
 Rails has a good transpiling framework -- not sure how to do the jsx
-transpiling in sinatra, so in retrospect perhaps not a good choice.
-Via jsxtransformer, am able to do the transpiling in the browser, which is good enough
-for development.
+transpiling in sinatra. Spent about two minutes with babel, but then went with the jsxtransformer.
 
 The example file does not have the same columns as the coding challenge description,
-so my models contain the subset of the fields, and assume the data will arrive
-in the format of the example file.
+so my models contain the superset, but am showing the subset.
 
 The rows of the example file are unique via street, latitude, and longitude, so
 those are what I use as the key. Should a second row occur with the same key,
 the original row will be updated.
 
-## Installation
+## Usage
 
 Run this from the command line:
 
 ```sh
-gem 'geo', :git => 'git://github.com/brianmd/geo.git'
-```
-
-
-## Usage
-
-This command runs the sinatra app and opens the browser to it (on a mac):
-
-```sh
-mac_geo_runner
-```
-
-OR
-
-```sh
+git clone https://github.com/brianmd/geo.git
+cd geo
+bundle install
 bundle exec ruby lib/webapp.rb
 
 and open http://localhost:8080/index.html in a browser
+
+Note: you must have redis running on localhost.
 ```
-
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/geo.
-
 
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
