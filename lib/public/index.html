@@ -1,6 +1,7 @@
 <html>
   <head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.2/react-with-addons.min.js"></script>
+    <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
   </head>
   <body>
     index
@@ -10,11 +11,12 @@
     <div id="app">
       <!-- my app renders here -->
     </div>
-    <script src="react/build/react.js"></script>
-    <script>
+    <script type="text/jsx">
       React.render(
-        React.DOM.h1(null, "Hello world!"),
-        document.getElementById("app")
+        <h1 id="my-heading">
+          <span><em>Hell</em>o</span> world!
+        </h1>,
+        document.getElementById('app')
       );
     </script>
   </body>

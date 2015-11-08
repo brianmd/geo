@@ -41,10 +41,10 @@ module Geo
       end
     end
 
-    context 'when city is missing' do
+    context 'when zip is missing' do
       let(:addr) {
         params = addr_params
-        params.delete :city
+        params.delete :zip
         Address.new(addr_params)
       }
 

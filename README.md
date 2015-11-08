@@ -10,9 +10,15 @@ but I took it as an opportunity
 to experiment with the virtus gem (learned using active_model is useful
 in conjuction it), and write my first react.js code.
 
-The example file does not have the same columns as the description, so my models
-contain the subset of the fields, and assume the data will arrive in the format
-of the example file.
+Using sinatra rather than rails as this is a small, self-contained project.
+Rails has a good transpiling framework -- not sure how to do the jsx
+transpiling in sinatra, so in retrospect perhaps not a good choice.
+Via babel, am able to do the transpiling in the browser, which is good enough
+for development.
+
+The example file does not have the same columns as the coding challenge description,
+so my models contain the subset of the fields, and assume the data will arrive
+in the format of the example file.
 
 The rows of the example file are unique via street, latitude, and longitude, so
 those are what I use as the key. Should a second row occur with the same key,
@@ -29,8 +35,10 @@ gem 'geo', :git => 'git://github.com/brianmd/geo.git'
 
 ## Usage
 
+This command runs the sinatra app and opens the browser to it (on a mac):
+
 ```sh
-geo_runner
+mac_geo_runner
 ```
 
 ## Development
