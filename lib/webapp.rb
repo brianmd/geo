@@ -20,8 +20,14 @@ def businesses
   $businesses
 end
 
+def default_businesses_text
+  txt = default_businesses_string
+  lines = txt.split("\r")
+  lines.join("\n")
+end
+
 def default_businesses_string
-  File.read('spec/offers_poi.tsv')
+  Geo::LoadBusinesses.default_business_text
 end
 
 def default_two_businesses_string
@@ -42,6 +48,20 @@ get '/businesses.json' do
 
   content_type :json
   { location: [latitude, longitude], businesses: json }.to_json
+end
+
+get '/businesses_text.json' do
+  $stderr.puts "\ngetting business text"
+  content_type :json
+  { businessText: default_businesses_text }.to_json
+end
+
+post '/new_businesses' do
+  $stderr.puts "\nadding new businesses"
+  txt = (params['data'])
+  txt = txt.split("\n").join("\r")
+  Geo::LoadBusinesses.load_businesses($businesses, txt)
+  'ok'
 end
 
 post '/delete_businesses' do

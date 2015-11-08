@@ -40,6 +40,11 @@ module Geo
       it 'should require latitude' do
         expect(GeoLocation.new).to_not be_valid
       end
+
+      it 'latitude should be forced to be a number' do
+        loc = GeoLocation.new(latitude: 'a', longitude: 4)
+        expect(loc).to_not be_valid
+      end
     end
   end
 end

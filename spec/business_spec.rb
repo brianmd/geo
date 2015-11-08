@@ -43,6 +43,30 @@ module Geo
         expect(business.nested_attributes).to eq(business_params)
       end
     end
+
+
+    context 'when invalid data is passed' do
+      it 'should be invalid when name is missing' do
+        params = business_params.dup
+        params.delete :name
+        bus = Business.new(params)
+        expect(bus).to_not be_valid
+      end
+
+      it 'should be invalid when street is missing' do
+        params = Marshal.load(Marshal.dump(business_params))
+        params[:address].delete :street
+        bus = Business.new(params)
+        expect(bus).to_not be_nested_valid
+      end
+
+      it 'should be invalid when latitude is not a number' do
+        params = Marshal.load(Marshal.dump(business_params))
+        params[:address][:location][:latitude] = 'a'
+        bus = Business.new(params)
+        expect(bus).to_not be_nested_valid
+      end
+    end
   end
 end
 

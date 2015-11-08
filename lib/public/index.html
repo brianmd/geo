@@ -6,10 +6,28 @@
   <body>
     <div id="businesses"></div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.2/react-with-addons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.2/react-with-addons.js"></script>
     <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
-    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+    <script type="text/jsx">
+      BusinessInput = React.createClass({
+        getInitialState: function() {
+          return {
+            businesses: [],
+            latitude: 33.1243208,
+            longitude: -117.32582479999996
+          };
+        },
+
+        render: function() {
+          return (
+            hey
+          );
+        }
+      });
+    </script>
 
     <script type="text/jsx">
       Businesses = React.createClass({
@@ -17,7 +35,8 @@
           return {
             businesses: [],
             latitude: 33.1243208,
-            longitude: -117.32582479999996
+            longitude: -117.32582479999996,
+            businessText: "asdf asdf asdf dsf fsa fasrwa wer adfs sadf ewr asdf adsf sdaf rewwea fsdafa\nasdfff  rewqewr"
           };
         },
 
@@ -29,6 +48,16 @@
           this.setState({longitude: e.target.value});
         },
 
+        onBusinessTextChange: function(e) {
+          this.setState({businessText: e.target.value});
+        },
+
+        onStoreClick: function(e) {
+          var self = this;
+          console.log('deleting all businesses');
+          $.post('/delete_businesses').always(function(){ self.reload(); });
+        },
+
         onDeleteAllClick: function(e) {
           var self = this;
           console.log('deleting all businesses');
@@ -37,18 +66,31 @@
 
         handleLocation: function(e) {
           e.preventDefault();
-          this.componentDidMount();
+          this.reload();
         },
 
         handleNewBusinesses: function(e) {
           e.preventDefault();
           var self = this;
+          var txt = $("#businessText").val();
           console.log('posting new businesses');
-          $.post('/new_businesses', {data: JSON.stringify()}).always(function(){ self.reload(); });
+          console.log(txt);
+          $.post('/new_businesses', {data: txt}).always(function(){ self.reload(); });
         },
 
         componentDidMount: function() {
           this.reload();
+          this.loadBusinessText();
+        },
+
+        loadBusinessText: function() {
+          console.log('loading business text');
+          $.get('/businesses_text.json', function(result) {
+            var txt = result.businessText;
+            if (this.isMounted()) {
+              this.setState({ businessText: txt });
+            }
+          }.bind(this));
         },
 
         reload: function() {
@@ -65,8 +107,9 @@
         },
 
         render: function() {
+          var invisible = { 'display': 'none' }
           collection = this.state.businesses || [];
-          if (collection.length) {
+          if (collection.length !== -1) {
             deleteButton = <button type="button" className="btn btn-danger" onClick={this.onDeleteAllClick}><span className="glyphicon glyphicon-remove"></span> Delete all businesses <span className="badge">{collection.length}</span></button>;
           } else {
             deleteButton = '';
@@ -77,13 +120,21 @@
               <form onSubmit={this.handleLocation}>
                 <input onChange={this.onLatitudeChange} value={this.state.latitude} />
                 <input onChange={this.onLongitudeChange} value={this.state.longitude} />
-                <button>{'Sort'}</button>
+                <button><span className="glyphicon glyphicon-sort-by-order"></span> Sort</button>
               </form>
-              <a href="/input_businesses">Add new businesses</a>
+
+              <a href="#" id="inputRef">Add new businesses</a>
+              <div id="businessInputs" style={invisible}>
+                <form onSubmit={this.handleNewBusinesses}>
+                  <textarea id="businessText" className="big-box" onChange={this.onBusinessTextChange} value={this.state.businessText} />
+                  <br/>
+                  <button type="button" className="btn btn-success" onClick={this.handleNewBusinesses}><span className="glyphicon glyphicon-ok"></span> Store Businesses</button>
+                </form>
+              </div>
               <hr/>
+
               <h1>Business Locations</h1>
-              <em>There are {collection.length} businesses.</em>
-              <div className="container">
+              <div className="container shadow">
                 <div className="row headingRow">
                   <div className="col-md-2">Name</div>
                   <div className="col-md-2">Street</div>
@@ -105,6 +156,7 @@
               </div>
               <br/>
               {deleteButton}
+            <button type="button" className="btn btn-danger" onClick={this.handleNewBusinesses}><span className="glyphicon glyphicon-remove"></span> add new businesses <span className="badge">{collection.length}</span></button>;
             </div>
           );
         }
@@ -114,6 +166,7 @@
         <Businesses source="/businesses.json" />,
         document.getElementById('businesses')
       );
+$("#inputRef").click(function(){ $("#businessInputs").toggle() });
     </script>
   </body>
 </html>

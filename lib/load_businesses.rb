@@ -10,9 +10,14 @@ module Geo
           is_first_row = false
           next if row.size<5 or row[0]=='name'
         end
+        next if row.length<5
         business = build_business(row)
         businesses_instance.save!(business)
       end
+    end
+
+    def self.default_business_text
+      File.read('spec/offers_poi.tsv')
     end
 
     private
