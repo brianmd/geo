@@ -29,9 +29,10 @@
           this.setState({longitude: e.target.value});
         },
 
-        onClearAllClick: function(e) {
-          console.log('you clicked it');
-          $.post('/clear_businesses');
+        onDeleteAllClick: function(e) {
+          var self = this;
+          console.log('deleting all businesses');
+          $.post('/delete_businesses', function(){ self.reload(); });
         },
 
         handleSubmit: function(e) {
@@ -40,6 +41,11 @@
         },
 
         componentDidMount: function() {
+          this.reload();
+        },
+
+        reload: function() {
+          console.log('reloading');
           var self = this;
           var params = {"latitude": this.state.latitude, "longitude": this.state.longitude}
           $.get(this.props.source, params, function(result) {
@@ -54,6 +60,11 @@
 
         render: function() {
           collection = this.state.businesses || [];
+          if (collection.length) {
+            deleteButton = <button onClick={this.onDeleteAllClick}>Delete all businesses</button>;
+          } else {
+            deleteButton = '';
+          }
           return (
             <div>
               <b>Set sorting location: </b>
@@ -63,7 +74,6 @@
                 <button>{'Sort'}</button>
               </form>
               <a href="/input_businesses">Input new businesses</a>
-              &nbsp;&nbsp;<span onClick={this.onClearAllClick}>Delete all businesses</span>
               <hr/>
               <h1>Business Locations</h1>
               <em>There are {collection.length} businesses.</em>
@@ -72,6 +82,7 @@
                 return <li>{business.name} {business.latitude} {business.longitude} {business.distance}</li>
               })}
               </ul>
+              {deleteButton}
             </div>
           );
         }

@@ -7,12 +7,18 @@ require_relative 'geo'
 
 def businesses
   unless $businesses
-    $stderr.puts 'creating businesses  !!!!!!!!!!!!!!!!!!!!!!!'
     $businesses = Geo::Businesses.new(Geo::Businesses.redis_hash)
-    data_string = File.read('spec/offers_poi.tsv')
-    Geo::LoadBusinesses.load_businesses($businesses, data_string)
+    if true
+      $stderr.puts 'loading businesses  !!!!!!!!!!!!!!!!!!!!!!!'
+      data_string = default_businesses_string
+      Geo::LoadBusinesses.load_businesses($businesses, data_string)
+    end
   end
   $businesses
+end
+
+def default_businesses_string
+  File.read('spec/offers_poi.tsv')
 end
 
 set :bind, '0.0.0.0'
@@ -32,8 +38,8 @@ get '/businesses.json' do
   { location: [latitude, longitude], businesses: json }.to_json
 end
 
-post '/clear_businesses' do
-  $stderr.puts 'clearing !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+post '/delete_businesses' do
+  $stderr.puts 'deleting !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
   businesses.clear_all!
   'ok'
 end
