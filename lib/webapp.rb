@@ -6,12 +6,13 @@ require_relative 'geo'
 # NOTE: you must have redis running on localhost w/o a password.
 
 def businesses
-  unless @businesses
-    @businesses = Geo::Businesses.new(Geo::Businesses.redis_hash)
+  unless $businesses
+    $stderr.puts 'creating businesses  !!!!!!!!!!!!!!!!!!!!!!!'
+    $businesses = Geo::Businesses.new(Geo::Businesses.redis_hash)
     data_string = File.read('spec/offers_poi.tsv')
-    Geo::LoadBusinesses.load_businesses(@businesses, data_string)
+    Geo::LoadBusinesses.load_businesses($businesses, data_string)
   end
-  @businesses
+  $businesses
 end
 
 set :bind, '0.0.0.0'
@@ -29,5 +30,11 @@ get '/businesses.json' do
 
   content_type :json
   { location: [latitude, longitude], businesses: json }.to_json
+end
+
+post '/clear_businesses' do
+  $stderr.puts 'clearing !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+  businesses.clear_all!
+  'ok'
 end
 
