@@ -2,6 +2,7 @@
   <head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.2/react-with-addons.min.js"></script>
     <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
   </head>
   <body>
     index
@@ -11,7 +12,74 @@
     <div id="app">
       <!-- my app renders here -->
     </div>
+    <div id="businesses"></div>
+    <div id="content"></div>
+
     <script type="text/jsx">
+      Businesses = React.createClass({
+        getInitialState: function() {
+          return {
+            businesses: [],
+            latitude: 33.1243208,
+            longitude: -117.32582479999996
+          };
+        },
+
+        onLatitudeChange: function(e) {
+          this.setState({latitude: e.target.value});
+        },
+
+        onLongitudeChange: function(e) {
+          this.setState({longitude: e.target.value});
+        },
+
+        handleSubmit: function(e) {
+          e.preventDefault();
+          this.componentDidMount();
+        },
+
+        componentDidMount: function() {
+          var self = this;
+          var params = {"latitude": this.state.latitude, "longitude": this.state.longitude}
+          $.get(this.props.source, params, function(result) {
+            var collection = result.businesses;
+            if (this.isMounted()) {
+              this.setState({
+                businesses: collection
+              });
+            }
+          }.bind(this));
+        },
+
+        render: function() {
+          collection = this.state.businesses || [];
+          return (
+            <div>
+              Distance from: 
+              <form onSubmit={this.handleSubmit}>
+                <input onChange={this.onLatitudeChange} value={this.state.latitude} />
+                <input onChange={this.onLongitudeChange} value={this.state.longitude} />
+                <button>{'Update'}</button>
+              </form>
+              Businesses ({collection.length}): <br/>
+              <ul>
+              {collection.map(function(business) {
+                return <li>{business.name} {business.latitude} {business.longitude} {business.distance}</li>
+              })}
+              </ul>
+            </div>
+          );
+        }
+      })
+
+      React.render(
+        <Businesses source="/businesses.json" />,
+        document.getElementById('businesses')
+      );
+
+
+
+
       React.render(
         <h1 id="my-heading">
           <span><em>Hell</em>o</span> world!

@@ -13,7 +13,7 @@ in conjuction it), and write my first react.js code.
 Using sinatra rather than rails as this is a small, self-contained project.
 Rails has a good transpiling framework -- not sure how to do the jsx
 transpiling in sinatra, so in retrospect perhaps not a good choice.
-Via babel, am able to do the transpiling in the browser, which is good enough
+Via jsxtransformer, am able to do the transpiling in the browser, which is good enough
 for development.
 
 The example file does not have the same columns as the coding challenge description,
