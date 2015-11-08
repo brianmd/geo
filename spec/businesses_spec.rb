@@ -85,19 +85,6 @@ module Geo
         expect(sorted[0].name).to eq('Verve2')
       end
     end
-
-    context 'when loading businesses' do
-      let(:data_string) { File.read('spec/offers_poi.tsv') }
-
-      it 'should read file' do
-        # expect(Pathname.new('.').realpath).to eq(3)
-        businesses.load(data_string)
-        # set = businesses.find_all.collect{|b| b.name}.to_set
-        # expect(set).to eq(3)
-        sorted = businesses.find_all_by_distance(Geo::verve_location)
-        expect(sorted.size).to eq(202)
-      end
-    end
   end
 end
 

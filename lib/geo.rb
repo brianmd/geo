@@ -9,4 +9,5 @@ require_relative 'geo_location'
 require_relative 'address'
 require_relative 'business'
 require_relative 'businesses'
+require_relative 'load_businesses'
 

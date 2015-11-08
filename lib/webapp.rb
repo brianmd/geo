@@ -10,7 +10,7 @@ def businesses
     $stderr.puts @businesses.inspect
     data_string = File.read('spec/offers_poi.tsv')
     $stderr.puts data_string, data_string.size
-    @businesses.load(data_string)
+    Geo::LoadBusinesses.load_businesses(@businesses, data_string)
   end
   @businesses
 end
