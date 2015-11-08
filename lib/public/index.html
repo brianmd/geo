@@ -1,15 +1,15 @@
 <html>
   <head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/geo.css" rel="stylesheet">
+  </head>
+  <body>
+    <div id="businesses"></div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.2/react-with-addons.min.js"></script>
     <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-  </head>
-  <body>
-    index
-    https://cdnjs.cloudflare.com/ajax/libs/react/0.14.2/react-with-addons.min.js
-    https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css
-    https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js
-    <div id="businesses"></div>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
     <script type="text/jsx">
       Businesses = React.createClass({
@@ -32,12 +32,19 @@
         onDeleteAllClick: function(e) {
           var self = this;
           console.log('deleting all businesses');
-          $.post('/delete_businesses', function(){ self.reload(); });
+          $.post('/delete_businesses').always(function(){ self.reload(); });
         },
 
-        handleSubmit: function(e) {
+        handleLocation: function(e) {
           e.preventDefault();
           this.componentDidMount();
+        },
+
+        handleNewBusinesses: function(e) {
+          e.preventDefault();
+          var self = this;
+          console.log('posting new businesses');
+          $.post('/new_businesses', {data: JSON.stringify()}).always(function(){ self.reload(); });
         },
 
         componentDidMount: function() {
@@ -46,7 +53,6 @@
 
         reload: function() {
           console.log('reloading');
-          var self = this;
           var params = {"latitude": this.state.latitude, "longitude": this.state.longitude}
           $.get(this.props.source, params, function(result) {
             var collection = result.businesses;
@@ -61,27 +67,43 @@
         render: function() {
           collection = this.state.businesses || [];
           if (collection.length) {
-            deleteButton = <button onClick={this.onDeleteAllClick}>Delete all businesses</button>;
+            deleteButton = <button type="button" className="btn btn-danger" onClick={this.onDeleteAllClick}><span className="glyphicon glyphicon-remove"></span> Delete all businesses <span className="badge">{collection.length}</span></button>;
           } else {
             deleteButton = '';
           }
           return (
             <div>
               <b>Set sorting location: </b>
-              <form onSubmit={this.handleSubmit}>
+              <form onSubmit={this.handleLocation}>
                 <input onChange={this.onLatitudeChange} value={this.state.latitude} />
                 <input onChange={this.onLongitudeChange} value={this.state.longitude} />
                 <button>{'Sort'}</button>
               </form>
-              <a href="/input_businesses">Input new businesses</a>
+              <a href="/input_businesses">Add new businesses</a>
               <hr/>
               <h1>Business Locations</h1>
               <em>There are {collection.length} businesses.</em>
-              <ul>
-              {collection.map(function(business) {
-                return <li>{business.name} {business.latitude} {business.longitude} {business.distance}</li>
-              })}
-              </ul>
+              <div className="container">
+                <div className="row headingRow">
+                  <div className="col-md-2">Name</div>
+                  <div className="col-md-2">Street</div>
+                  <div className="col-md-2">Zip</div>
+                  <div className="col-md-2">Latitude</div>
+                  <div className="col-md-2">Longitude</div>
+                  <div className="col-md-2">Distance</div>
+                </div>
+                {collection.map(function(business) {
+                  return <div className="row">
+                    <div className="col-md-2">{business.name}</div>
+                    <div className="col-md-2">{business.street}</div>
+                    <div className="col-md-2">{business.zip}</div>
+                    <div className="col-md-2">{business.latitude}</div>
+                    <div className="col-md-2">{business.longitude}</div>
+                    <div className="col-md-2">{business.distance}</div>
+                  </div>
+                })}
+              </div>
+              <br/>
               {deleteButton}
             </div>
           );

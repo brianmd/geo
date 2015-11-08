@@ -1,0 +1,4 @@
+body { margin: 15px }
+.row { border: 1px solid }
+.headingRow { background-color: lightGray; font-weight: bold }
+.btn-danger { borderRadius: '10px' }

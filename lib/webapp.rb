@@ -5,12 +5,15 @@ require_relative 'geo'
 
 # NOTE: you must have redis running on localhost w/o a password.
 
+set :bind, '0.0.0.0'
+set :port, 8080
+
 def businesses
   unless $businesses
     $businesses = Geo::Businesses.new(Geo::Businesses.redis_hash)
     if true
-      $stderr.puts 'loading businesses  !!!!!!!!!!!!!!!!!!!!!!!'
-      data_string = default_businesses_string
+      $stderr.puts "\nloading first two businesses"
+      data_string = default_two_businesses_string
       Geo::LoadBusinesses.load_businesses($businesses, data_string)
     end
   end
@@ -21,8 +24,11 @@ def default_businesses_string
   File.read('spec/offers_poi.tsv')
 end
 
-set :bind, '0.0.0.0'
-set :port, 8080
+def default_two_businesses_string
+  str = default_businesses_string
+  lines = str.split("\r")
+  lines[0..2].join("\r")
+end
 
 get '/version' do
   Geo::VERSION
@@ -39,7 +45,7 @@ get '/businesses.json' do
 end
 
 post '/delete_businesses' do
-  $stderr.puts 'deleting !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+  $stderr.puts "\ndeleting all businesses"
   businesses.clear_all!
   'ok'
 end
