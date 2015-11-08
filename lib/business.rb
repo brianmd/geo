@@ -23,6 +23,10 @@ module Geo
       address.distance_from(other_location)
     end
 
+    def nested_valid?
+      valid? and address.nested_valid?
+    end
+
     def to_hash(location=nil)
       hash = {
         name: name,

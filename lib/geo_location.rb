@@ -6,7 +6,7 @@ module Geo
     attribute :latitude, Float
     attribute :longitude, Float
 
-    validates :latitude, :longitude, presence: true
+    validates :latitude, :longitude, presence: true, numericality: {only_float: true}
 
     def to_a
       [latitude, longitude]

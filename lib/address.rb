@@ -15,6 +15,10 @@ module Geo
 
     validates :street, :zip, presence: true
 
+    def nested_valid?
+      valid? and location.valid?
+    end
+
     def distance_from(other_location)
       fail 'This address does not have a location to find determine the distance' unless location
       location.distance_from(other_location)
