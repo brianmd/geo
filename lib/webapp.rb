@@ -58,10 +58,17 @@ end
 
 post '/new_businesses' do
   $stderr.puts "\nadding new businesses"
+  content_type :json
   txt = (params['data'])
   txt = txt.split("\n").join("\r")
-  Geo::LoadBusinesses.load_businesses($businesses, txt)
-  'ok'
+  errors = Geo::LoadBusinesses.load_businesses($businesses, txt)
+  $stderr.puts 'errors', errors.inspect
+  if errors.empty?
+    { errors: [] }.to_json
+  else
+    status 400
+    { errors: errors }.to_json
+  end
 end
 
 post '/delete_businesses' do

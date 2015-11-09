@@ -75,7 +75,13 @@
           var self = this;
           var txt = $("#businessText").val();
           console.log('posting new businesses');
-          $.post('/new_businesses', {data: txt}).always(function(){ self.reload(); });
+          $.post('/new_businesses', {data: txt})
+            .fail(function(result,textStatus,error){
+              var errs = JSON.parse(result.responseText).errors;
+              console.log(errs);
+              alert("Errors occurred on line number(s) " + errs);
+              })
+            .always(function(){ self.reload(); });
         },
 
         componentDidMount: function() {
