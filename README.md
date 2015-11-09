@@ -21,8 +21,10 @@ those are what I use as the key. Should a second row occur with the same key,
 the original row will be updated.
 
 Added a bit of google map api code at the last minute.
-Would like to have allowed clicking of a business to pull up
-a modal with a map of that location, but ran out of time.
+Clicking a business row moves the map to that business location and uses the
+business's radius, but the map needs to be moved to a
+modal. Otherwise, when there are many rows, the map will be lost at the bottom
+of the page.
 
 ![Alt text](docs/verve.png?raw=true "Class Diagram")
 
