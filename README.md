@@ -23,8 +23,9 @@ the original row will be updated.
 Added a bit of google map api code at the last minute.
 Clicking a business row moves the map to that business location and uses the
 business's radius, but the map needs to be moved to a
-modal. Otherwise, when there are many rows, the map will be lost at the bottom
-of the page.
+modal. Otherwise, when there are many rows, the map will be lost at the bottom of the page. (Just noticed another problem with my implementation.
+Clicking multiple times on a business creates new markers and radius circles.
+Ideally the business would keep track of whether it had already set the marker.)
 
 ![Alt text](docs/verve.png?raw=true "Class Diagram")
 
