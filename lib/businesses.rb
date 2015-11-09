@@ -30,6 +30,7 @@ module Geo
     end
 
     def save!(business)
+      fail 'Business is not vaild' unless business.nested_valid?
       self[business.key] = business
     end
 
