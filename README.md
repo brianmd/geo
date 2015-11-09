@@ -2,7 +2,7 @@
 
 # Geo
 
-![Alt text](docs/verve.png?raw=true "Class Diagram")
+![Alt text](docs/screenshot.png?raw=true "Screenshot")
 
 This repository is for the Verve
 [coding challenge](https://github.com/VerveWireless/software-challenge),
@@ -19,6 +19,12 @@ so my models contain the superset, but am showing the subset.
 The rows of the example file are unique via street, latitude, and longitude, so
 those are what I use as the key. Should a second row occur with the same key,
 the original row will be updated.
+
+Added a bit of google map api code at the last minute.
+Would like to have allowed clicking of a business to pull up
+a modal with a map of that location, but ran out of time.
+
+![Alt text](docs/verve.png?raw=true "Class Diagram")
 
 ## Usage
 
