@@ -36,7 +36,6 @@
     <script type="text/jsx">
       Businesses = React.createClass({
         getInitialState: function() {
-          this.initializeMap();
           return {
             businesses: [],
             latitude: 33.1243208,
@@ -79,7 +78,7 @@
           var map = window.googleMap;
           console.log('businesses');
           console.log(businesses);
-          businesses.forEach(function(business) {
+          for (var business of businesses) {
             var center = new google.maps.LatLng(business.latitude, business.longitude);
             var marker = new google.maps.Marker({
               position: center,
@@ -95,9 +94,9 @@
               strokeOpacity:0.8,
               strokeWeight:2,
               fillColor:"#0000FF",
-              fillOpacity:0.2,
+              fillOpacity:0.1,
             });
-          });
+          };
           this.onBusinessRowClick(businesses[0]);
         },
 
@@ -146,6 +145,7 @@
           console.log('reloading');
           var self = this;
           var params = {"latitude": this.state.latitude, "longitude": this.state.longitude}
+          this.initializeMap();
           $.get(this.props.source, params, function(result) {
             var collection = result.businesses;
             if (this.isMounted()) {

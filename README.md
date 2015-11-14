@@ -7,7 +7,7 @@
 This repository is for the Verve
 [coding challenge](https://github.com/VerveWireless/software-challenge).
 
-The example file format is slightly different than the challenge description. This uses the example file format (and puts it into the textarea as a default, which may be modified before submission.) The first five rows are added upon startup.
+The example file format is slightly different than the challenge description. This uses the example file format (and puts it into the textarea as a default, which info [such as location or radius] may be modified before submission.) The first five rows are added upon startup as an example.
 
 ![Alt text](docs/verve.png?raw=true "Class Diagram")
 
