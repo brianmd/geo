@@ -22,8 +22,7 @@ end
 
 def default_businesses_text
   txt = default_businesses_string
-  lines = txt.split("\r")
-  lines.join("\n")
+  txt.gsub("\r", "\n")
 end
 
 def default_businesses_string
@@ -33,7 +32,7 @@ end
 def default_two_businesses_string
   str = default_businesses_string
   lines = str.split("\r")
-  lines[0..2].join("\r")
+  lines[0..5].join("\r")
 end
 
 get '/version' do
@@ -60,7 +59,7 @@ post '/new_businesses' do
   $stderr.puts "\nadding new businesses"
   content_type :json
   txt = (params['data'])
-  txt = txt.split("\n").join("\r")
+  txt = txt.gsub("\n", "\r")
   errors = Geo::LoadBusinesses.load_businesses($businesses, txt)
   $stderr.puts 'errors', errors.inspect
   if errors.empty?

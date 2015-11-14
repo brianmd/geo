@@ -5,27 +5,9 @@
 ![Alt text](docs/screenshot.png?raw=true "Screenshot")
 
 This repository is for the Verve
-[coding challenge](https://github.com/VerveWireless/software-challenge),
-but I took it as an opportunity
-to experiment with the virtus gem and write my first react.js code.
+[coding challenge](https://github.com/VerveWireless/software-challenge).
 
-Using sinatra rather than rails as this is a small, self-contained project.
-Rails has a good transpiling framework -- not sure how to do the jsx
-transpiling in sinatra. Spent about two minutes with babel, but then went with the jsxtransformer.
-
-The example file does not have the same columns as the coding challenge description,
-so my models contain the superset, but am showing the subset.
-
-The rows of the example file are unique via street, latitude, and longitude, so
-those are what I use as the key. Should a second row occur with the same key,
-the original row will be updated.
-
-Added a bit of google map api code at the last minute.
-Clicking a business row moves the map to that business location and uses the
-business's radius, but the map needs to be moved to a
-modal. Otherwise, when there are many rows, the map will be lost at the bottom of the page. (Just noticed another problem with my implementation.
-Clicking multiple times on a business creates new markers and radius circles.
-Ideally the business would keep track of whether it had already set the marker.)
+The example file format is slightly different than the challenge description. This uses the example file format (and puts it into the textarea as a default, which may be modified before submission.) The first five rows are added upon startup.
 
 ![Alt text](docs/verve.png?raw=true "Class Diagram")
 
