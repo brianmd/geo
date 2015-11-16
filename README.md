@@ -7,24 +7,22 @@
 This repository is for the Verve
 [coding challenge](https://github.com/VerveWireless/software-challenge).
 
-The example file format is slightly different than the challenge description. This uses the example file format (and puts it into the textarea as a default, which info [such as location or radius] may be modified before submission.) The first five rows are added upon startup as an example.
+The example file format is slightly different than the challenge description. This uses the example file format, and load this file into the text input area. The data can be modified or replaced prior to submission. The first five rows of the example file are added upon startup.
 
 ![Alt text](docs/verve.png?raw=true "Class Diagram")
 
 ## Usage
 
-Run this from the command line:
+Run these from the command line:
 
-```sh
-git clone https://github.com/brianmd/geo.git
-cd geo
-bundle install
-bundle exec ruby lib/webapp.rb
+    $ git clone https://github.com/brianmd/geo.git
+    $ cd geo
+    $ bundle install   # if you don't have bundle, install from http://bundler.io/
+    $ bundle exec ruby lib/webapp.rb
 
-and open http://localhost:8080/index.html in a browser
+and open <http://localhost:8080/index.html> in a browser
 
-Note: you must have redis running on localhost.
-```
+Note: you must have redis running on localhost, OR replace `redis_hash` with `memory_hash` in lib/webapp.rb. Note that the latter will not retain your changes if you restart this app.
 
 ## License
 

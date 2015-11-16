@@ -10,12 +10,10 @@ set :port, 8080
 
 def businesses
   unless $businesses
-    $businesses = Geo::Businesses.new(Geo::Businesses.redis_hash)
-    if true
-      $stderr.puts "\nloading first two businesses"
-      data_string = default_two_businesses_string
-      Geo::LoadBusinesses.load_businesses($businesses, data_string)
-    end
+    $businesses = Geo::Businesses.new(Geo::Businesses.memory_hash)
+    $stderr.puts "\nloading first five businesses"
+    data_string = businesses_string(5)
+    Geo::LoadBusinesses.load_businesses($businesses, data_string)
   end
   $businesses
 end
@@ -29,10 +27,10 @@ def default_businesses_string
   Geo::LoadBusinesses.default_business_text
 end
 
-def default_two_businesses_string
+def businesses_string(num_rows)
   str = default_businesses_string
   lines = str.split("\r")
-  lines[0..5].join("\r")
+  lines[0..num_rows].join("\r")
 end
 
 get '/version' do
